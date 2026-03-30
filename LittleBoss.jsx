@@ -663,7 +663,15 @@ function OngoingPage({ onNavTo }) {
   ];
 
   const [checkStates, setCheckStates] = useState(
-    Object.fromEntries(docsInitial.map(doc => [doc.title, Array(doc.total).fill(false)]))
+    Object.fromEntries(docsInitial.map(doc => {
+      const initialChecks = Array(doc.total).fill(false);
+      // 국가장학금 신청: 처음 2개 기본 선택
+      if (doc.title === "국가장학금 신청") {
+        initialChecks[0] = true;
+        initialChecks[1] = true;
+      }
+      return [doc.title, initialChecks];
+    }))
   );
 
   const toggleCheck = (docTitle, idx) => {
