@@ -141,11 +141,11 @@ function Header({ isLoggedIn, onLogout, onLogin, onSignup, onNavTo }) {
   const [dd, setDd] = useState(false);
   const [notifOpen, setNotifOpen] = useState(false);
   const notificationsRaw = [
-    { id: 0, type: "highlight", title: "📢 공지사항", message: "2026 봄학기 장학금 신청 일정 안내", time: "방금", icon: "📢", pinned: true },
-    { id: 1, type: "highlight", title: "졸업예비심사 신청", message: "3월 22일이 마감입니다", time: "3시간 전", icon: "📋", pinned: true },
-    { id: 2, title: "국가장학금 신청", message: "필수 서류가 미완료 상태입니다", time: "1일 전", icon: "📄" },
-    { id: 3, title: "근로장학금 신청", message: "신청 기간이 시작되었습니다", time: "3일 전", icon: "💼" },
-    { id: 4, title: "문서 분석 완료", message: "업로드하신 문서 분석이 완료되었습니다", time: "1주 전", icon: "✅" }
+    { id: 0, type: "highlight", title: "공지사항", message: "2026-03-19 기능 업데이트 사항", time: "방금", pinned: true },
+    { id: 1, type: "highlight", title: "졸업예비심사 신청", message: "3월 22일이 마감입니다", time: "3시간 전", pinned: true },
+    { id: 2, title: "국가장학금 신청", message: "필수 서류가 미완료 상태입니다", time: "1일 전", icon: "📄"},
+    { id: 3, title: " 근로장학금 신청", message: "신청 기간이 시작되었습니다", time: "3일 전", icon: "💼"},
+    { id: 4, title: " 문서 분석 완료", message: "업로드하신 문서 분석이 완료되었습니다", time: "1주 전", icon: "✅"}
   ];
   const notifications = [...notificationsRaw.filter(n => n.pinned), ...notificationsRaw.filter(n => !n.pinned)];
   useEffect(() => {
@@ -184,8 +184,8 @@ function Header({ isLoggedIn, onLogout, onLogin, onSignup, onNavTo }) {
                       let messageColor = C.textMid;
                       if (notif.type === "highlight") {
                         bgColor = "#FFF0F0";
-                        titleColor = "#C41E3A";
-                        messageColor = "#A91E2E";
+                        titleColor = C.text;
+                        messageColor = C.text;
                       }
                       const handleNotifClick = () => {
                         setNotifOpen(false);
@@ -203,10 +203,11 @@ function Header({ isLoggedIn, onLogout, onLogin, onSignup, onNavTo }) {
                       };
                       return (
                         <div key={notif.id} onClick={handleNotifClick} style={{ padding: "12px 14px", borderBottom: `1px solid ${C.purpleBorder}`, cursor: "pointer", transition: "background 0.2s", background: bgColor, hover: { background: bgColor } }}>
-                          <div style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
+                          <div style={{ display: "flex", gap: 8, alignItems: "flex-start" }}>
+                            {notif.pinned && notif.type === "highlight" && <span style={{ fontSize: 16, flexShrink: 0, marginRight: -2 }}>📌</span>}
                             <span style={{ fontSize: 18 }}>{notif.icon}</span>
                             <div style={{ flex: 1, minWidth: 0 }}>
-                              <div style={{ fontSize: 12, fontWeight: 600, color: titleColor, marginBottom: 2 }}>{notif.title}</div>
+                              <div style={{ fontSize: 12, fontWeight: 800, color: titleColor, marginBottom: 2 }}>{notif.title}</div>
                               <div style={{ fontSize: 11, color: messageColor, marginBottom: 4, lineHeight: 1.3 }}>{notif.message}</div>
                               <div style={{ fontSize: 10, color: C.textLight }}>{notif.time}</div>
                             </div>
@@ -834,38 +835,39 @@ function NotificationAnnouncementPage({ onNavTo }) {
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 24 }}>
         <div>
           <div style={{ fontSize: 22, fontWeight: 700, marginBottom: 4 }}>📢 공지사항</div>
-          <div style={{ fontSize: 14, color: C.textLight }}>2026 봄학기 장학금 신청 일정 안내</div>
+          <div style={{ fontSize: 14, color: C.textLight }}>2026-03-19 기능 업데이트 사항</div>
         </div>
         <button onClick={() => onNavTo('sub-home')} style={{ ...S.btnOutline, fontSize: 12 }}>← 돌아가기</button>
       </div>
 
       <div style={{ ...S.card, marginBottom: 20 }}>
-        <div style={{ fontSize: 12, color: C.textLight, marginBottom: 16 }}>2026.03.19 · 공지</div>
-        <div style={{ fontSize: 18, fontWeight: 700, marginBottom: 16 }}>2026 봄학기 장학금 신청 일정 안내</div>
+        <div style={{ fontSize: 12, color: C.textLight, marginBottom: 16 }}>2026.03.30 · 공지</div>
+        <div style={{ fontSize: 18, fontWeight: 700, marginBottom: 16 }}>기능 업데이트 사항</div>
 
         <div style={{ lineHeight: 1.8, color: C.textMid, fontSize: 13 }}>
-          <p style={{ marginBottom: 16 }}>2026학년도 봄학기 장학금 신청이 시작되었습니다.</p>
+          <p style={{ marginBottom: 16 }}>LittleBoss 플랫폼의 새로운 기능 업데이트가 완료되었습니다. 더욱 향상된 사용자 경험을 제공하기 위해 여러 기능이 추가되고 개선되었습니다.</p>
 
           <div style={{ marginBottom: 16 }}>
-            <div style={{ fontWeight: 700, color: C.text, marginBottom: 8 }}>📋 신청 일정</div>
+            <div style={{ fontWeight: 700, color: C.text, marginBottom: 8 }}>🎯 추가된 기능</div>
             <div style={{ paddingLeft: 12, borderLeft: `2px solid ${C.purple}` }}>
-              <div>국가장학금: 3월 17일(화) 마감</div>
-              <div>근로장학금: 3월 27일(금) 마감</div>
-              <div>졸업예비심사: 3월 22일(일) 마감</div>
+              <div>· 대시보드 알림 시스템 개선</div>
+              <div>· 문서 분석 결과 상세 보기 기능</div>
+              <div>· 일정 관리 캘린더 연동 기능</div>
+              <div>· 문서 업로드 진행도 표시</div>
             </div>
           </div>
 
           <div style={{ marginBottom: 16 }}>
-            <div style={{ fontWeight: 700, color: C.text, marginBottom: 8 }}>✅ 필수 제출 서류</div>
+            <div style={{ fontWeight: 700, color: C.text, marginBottom: 8 }}>⚡ 개선된 사항</div>
             <div style={{ paddingLeft: 12, borderLeft: `2px solid ${C.purple}` }}>
-              <div>· 재학증명서</div>
-              <div>· 가족관계증명서</div>
-              <div>· 소득분위 확인서</div>
-              <div>· 주민등록등본</div>
+              <div>· UI/UX 디자인 개선으로 더 직관적인 인터페이스</div>
+              <div>· 알림 속도 및 정확도 향상</div>
+              <div>· 모바일 환경에서의 반응성 개선</div>
+              <div>· 보안 기능 강화</div>
             </div>
           </div>
 
-          <p style={{ marginBottom: 16 }}>자세한 사항은 학생지원센터(02-1234-5678)로 문의하시기 바랍니다.</p>
+          <p style={{ marginBottom: 16 }}>업데이트 사항에 대한 문의가 있으시면 고객지원팀(support@littleboss.com)으로 연락 주시기 바랍니다.</p>
         </div>
       </div>
     </div>
@@ -1245,8 +1247,9 @@ function ProfilePage() {
 
 // ── Main App ──
 export default function App() {
-  const [page, setPage] = useState("login"); // "signup" | "login" | "app"
-  const [sub, setSub] = useState("sub-home");
+  const params = new URLSearchParams(window.location.search);
+  const [page, setPage] = useState(params.get("page") || "login"); // "signup" | "login" | "app"
+  const [sub, setSub] = useState(params.get("sub") || "sub-home");
   const [scheduleDetailDay, setScheduleDetailDay] = useState(null);
   const [docDetailData, setDocDetailData] = useState(null);
   const [docAnalysisId, setDocAnalysisId] = useState(null);
