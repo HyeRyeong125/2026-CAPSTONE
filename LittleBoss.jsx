@@ -194,7 +194,7 @@ function Header({ isLoggedIn, onLogout, onLogin, onSignup, onNavTo }) {
                         } else if (notif.id === 1) {
                           onNavTo("schedule-detail", 22);
                         } else if (notif.id === 2) {
-                          onNavTo("schedule-detail", 17);
+                          onNavTo("schedule-detail", 22);
                         } else if (notif.id === 3) {
                           onNavTo("schedule-detail", 27);
                         } else if (notif.id === 4) {
@@ -298,7 +298,7 @@ function Dashboard({ onNavTo }) {
     else setMonth(month + 1);
   };
 
-  const eventDates = { 3: { 17: "purple", 19: "gray", 22: "red", 27: "green" } };
+  const eventDates = { 3: { 19: "gray", 22: "purple", 27: "green" } };
   const daysInMonth = getDaysInMonth(year, month);
   const firstDay = getFirstDayOfMonth(year, month);
   const calendarDays = [];
@@ -313,11 +313,11 @@ function Dashboard({ onNavTo }) {
       </div>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 16 }}>
         {/* Left card */}
-        <div style={{...S.card, cursor: 'pointer', transition: 'all 0.2s'}} onClick={() => onNavTo('schedule-detail', 17)} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 12px 32px rgba(107,79,232,0.15)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = S.card.boxShadow}>
+        <div style={{...S.card, cursor: 'pointer', transition: 'all 0.2s'}} onClick={() => onNavTo('schedule-detail', 22)} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 12px 32px rgba(107,79,232,0.15)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = S.card.boxShadow}>
           <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 16 }}>마감 임박 문서</div>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
             <span style={{ background: C.redBg, color: C.red, fontWeight: 700, fontSize: 15, padding: "5px 12px", borderRadius: 8 }}>D-3</span>
-            <div style={{ textAlign: "right" }}><div style={{ fontWeight: 700, fontSize: 14 }}>국가장학금 신청</div><div style={{ fontSize: 11, color: C.textLight, marginTop: 2 }}>마감 기한 | 2026-03-17 17:00</div></div>
+            <div style={{ textAlign: "right" }}><div style={{ fontWeight: 700, fontSize: 14 }}>국가장학금 신청</div><div style={{ fontSize: 11, color: C.textLight, marginTop: 2 }}>마감 기한 | 2026-03-22 17:00</div></div>
           </div>
           <hr style={{ border: "none", borderTop: `1px solid ${C.purpleBorder}`, margin: "14px 0" }} />
           <div style={{ fontWeight: 700, fontSize: 14, marginBottom: 8 }}>미완료 서류</div>
@@ -436,7 +436,7 @@ function Dashboard({ onNavTo }) {
             color: C.purple,
             bg: C.purpleBg,
             title: "국가장학금 신청",
-            deadline: "2026-03-17 17:00",
+            deadline: "2026-03-22 17:00",
             ago: "D-3",
             done: 2,
             total: 5,
@@ -623,7 +623,7 @@ function SchedulePage({ onNavTo }) {
       </div>
       <div style={{ fontSize: 11, fontWeight: 700, color: C.textLight, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 14 }}>마감 일정 목록</div>
       <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-        {[{ month:"MAR", day:17, title:"국가장학금 신청", items:"· 가족관계증명서 · 재학증명서 · 소득분위 확인서", dday:"D+2 (마감)", ddayColor: C.textLight, ddayBg: C.bg, passed: true },
+        {[{ month:"MAR", day:22, title:"국가장학금 신청", items:"· 가족관계증명서 · 재학증명서 · 소득분위 확인서", dday:"D-3", ddayColor:"#EA580C", ddayBg:"#FFF7ED", passed: false },
           { month:"MAR", day:22, title:"졸업예비심사 신청", items:"· 졸업논문 계획서 · 지도교수 확인서", dday:"D-3", ddayColor:"#EA580C", ddayBg:"#FFF7ED" },
           { month:"MAR", day:27, title:"근로장학금 신청", items:"· 재학증명서 · 통장 사본", dday:"D-8", ddayColor: C.green, ddayBg: C.greenBg },
         ].map(item => (
@@ -656,7 +656,7 @@ function CheckItem({ label, defaultChecked }) {
 
 function OngoingPage({ onNavTo }) {
   const docsInitial = [
-    { title:"국가장학금 신청", upload:"2026.03.14", deadline:"2026-03-17 17:00 · D-3", dc: C.red, db: C.redBg,
+    { title:"국가장학금 신청", upload:"2026.03.14", deadline:"2026-03-22 17:00 · D-3", dc: C.red, db: C.redBg,
       checks:[{l:"소득분위 확인서 제출"},{l:"학교 포털 신청서 작성 완료"},{l:"주민등록등본 업로드"},{l:"가족관계증명서 제출"},{l:"재학증명서 제출"}], total:5 },
     { title:"졸업예비심사 신청", upload:"2026.03.10", deadline:"2026-03-22 18:00 · D-8", dc:"#EA580C", db:"#FFF7ED",
       checks:[{l:"졸업논문 계획서 초안 작성"},{l:"지도교수 확인서 수령"},{l:"학교 포털 심사 신청"}], total:3 },
@@ -806,8 +806,7 @@ function ScheduleDetailPage({ day, onNavTo }) {
   }, [memo, checks, day]);
 
   const scheduleData = {
-    17: { title: "국가장학금 신청", deadline: "2026-03-17 17:00", dday: "D+2 (마감)", summary: "정부에서 지원하는 국가 장학금 신청 프로세스입니다. 소득분위 확인 및 필수 서류 제출이 필요합니다.", documents: ["소득분위 확인서", "가족관계증명서", "재학증명서", "주민등록등본"], color: "#A91E2E", bg: "#FFE5E5" },
-    22: { title: "졸업예비심사 신청", deadline: "2026-03-22 18:00", dday: "D-3", summary: "졸업 자격 심사를 위한 졸업예비심사 신청입니다. 졸업논문 계획서와 지도교수 확인서가 필수입니다.", documents: ["졸업논문 계획서", "지도교수 확인서", "학적 기록부"], color: "#EA580C", bg: "#FFF7ED" },
+    22: { title: "국가장학금 신청", deadline: "2026-03-22 17:00", dday: "D-3", summary: "정부에서 지원하는 국가 장학금 신청 프로세스입니다. 소득분위 확인 및 필수 서류 제출이 필요합니다.", documents: ["소득분위 확인서", "가족관계증명서", "재학증명서", "주민등록등본"], color: "#A91E2E", bg: "#FFE5E5" },
     27: { title: "근로장학금 신청", deadline: "2026-03-27 23:59", dday: "D-8", summary: "학교 근로 장학금 신청입니다. 근로시간 증명서와 통장 사본이 필요합니다.", documents: ["재학증명서", "통장 사본", "신원증 사본"], color: C.green, bg: "#F0FDF4" }
   };
 
