@@ -866,7 +866,7 @@ function ExpiredPage({ onNavTo }) {
               <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
                 {doc.checks.map((c, idx) => (
                   <div key={c.l} style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 13, color: C.textMid }}>
-                    <input type="checkbox" checked={checked[idx]} onChange={() => toggleCheck(doc.title, idx)} style={{ accentColor: C.purple, width: 15, height: 15, cursor: "pointer" }} />
+                    <input type="checkbox" checked={checked[idx]} disabled style={{ accentColor: C.purple, width: 15, height: 15, cursor: "not-allowed", opacity: 0.7 }} />
                     <span>{c.l}</span>
                   </div>
                 ))}
