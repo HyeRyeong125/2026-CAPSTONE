@@ -562,7 +562,7 @@ function UploadPage({ onNavTo }) {
               <div key={f.id} style={{ background: "white", borderRadius: 10, padding: "12px 16px", display: "flex", alignItems: "center", gap: 12, opacity: checkedFiles[f.id] ? 0.5 : 1, transition: "opacity 0.2s" }}>
                 <span style={{ fontSize: 24 }}>📄</span>
                 <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ fontSize: 13, fontWeight: 600, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", textDecoration: checkedFiles[f.id] ? "line-through" : "none" }}>{f.name}</div>
+                  <div style={{ fontSize: 13, fontWeight: 600, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{f.name}</div>
                   <div style={{ fontSize: 11, color: C.textLight, marginTop: 2 }}>{f.size}</div>
                   <div style={{ height: 3, background: "#EDE9FF", borderRadius: 2, marginTop: 6 }}><div style={{ height: "100%", borderRadius: 2, background: C.purple, width: f.progress + "%", transition: "width .3s" }} /></div>
                 </div>
@@ -729,7 +729,7 @@ function SchedulePage({ onNavTo }) {
 function CheckItem({ label, defaultChecked }) {
   const [checked, setChecked] = useState(defaultChecked);
   return (
-    <label style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 13, color: checked ? C.textLight : C.textMid, cursor: "pointer", textDecoration: checked ? "line-through" : "none" }}>
+    <label style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 13, color: C.textMid, cursor: "pointer" }}>
       <input type="checkbox" checked={checked} onChange={() => setChecked(p => !p)} style={{ accentColor: C.purple, width: 15, height: 15, cursor: "pointer" }} />
       {label}
     </label>
