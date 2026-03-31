@@ -572,7 +572,7 @@ function UploadPage({ onNavTo }) {
         </div>
         {/* Recent panel */}
         <div style={{ background: "white", borderRadius: 14, overflow: "hidden" }}>
-          <div style={{ padding: "16px 18px", borderBottom: `1px solid ${C.purpleBorder}`, fontSize: 13, fontWeight: 700 }}>📋 최근 업로드 파일</div>
+          <div style={{ padding: "16px 18px", borderBottom: `1px solid ${C.purpleBorder}`, fontSize: 13, fontWeight: 700 }}>📋 분석 완료 파일</div>
           <div style={{ padding: 8, maxHeight: 520, overflowY: "auto" }}>
             {recentFiles.map(f => (
               <div key={f.id} onClick={() => onNavTo("doc-analysis", f.id)} style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px", borderRadius: 9, cursor: "pointer", marginBottom: 2, transition: "all 0.2s", background: "transparent", hover: { background: C.purpleBg } }}>
