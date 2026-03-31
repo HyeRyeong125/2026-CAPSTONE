@@ -570,9 +570,9 @@ function UploadPage({ onNavTo }) {
               </div>
             ))}
             {queue.length > 0 && (
-              <div style={{ display: "flex", gap: 10, marginTop: 10 }}>
-                <button onClick={() => setQueue([])} style={{ ...S.btnOutline, flex: 1, fontSize: 13 }}>업로드 취소</button>
-                <button onClick={() => {}} style={{ ...S.btnPrimary, flex: 1, fontSize: 13, justifyContent: "center" }}>분석하기</button>
+              <div style={{ display: "flex", gap: 10, marginTop: 10, justifyContent: "flex-end" }}>
+                <button onClick={() => setQueue([])} style={{ ...S.btnOutline, fontSize: 13 }}>업로드 취소</button>
+                <button onClick={() => {}} style={{ ...S.btnPrimary, fontSize: 13, justifyContent: "center" }}>분석하기</button>
               </div>
             )}
           </div>
