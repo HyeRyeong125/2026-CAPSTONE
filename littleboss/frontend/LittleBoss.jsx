@@ -724,9 +724,13 @@ function ExpiredPage({ onNavTo }) {
     { ago:"70일 전", title:"휴학 신청", upload:"2026.01.05", deadline:"2026.01.08", done:3, total:3, checks:[{l:"휴학 신청서 제출"},{l:"학생증 사본 제출"}] },
   ];
 
+  const [docs, setDocs] = useState(docsInitial);
   const [checkStates, setCheckStates] = useState(
     Object.fromEntries(docsInitial.map(doc => [doc.title, Array(doc.checks.length).fill(doc.done === doc.total)]))
   );
+  const [deleteTarget, setDeleteTarget] = useState(null);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [showDeleteSuccess, setShowDeleteSuccess] = useState(false);
 
   const toggleCheck = (docTitle, idx) => {
     setCheckStates(prev => ({
@@ -735,11 +739,29 @@ function ExpiredPage({ onNavTo }) {
     }));
   };
 
+  const handleDeleteClick = (docTitle) => {
+    setDeleteTarget(docTitle);
+    setShowDeleteConfirm(true);
+  };
+
+  const handleDeleteConfirm = () => {
+    setShowDeleteConfirm(false);
+    setDocs(prev => prev.filter(doc => doc.title !== deleteTarget));
+    setShowDeleteSuccess(true);
+    setTimeout(() => setShowDeleteSuccess(false), 2000);
+    setDeleteTarget(null);
+  };
+
+  const handleDeleteCancel = () => {
+    setShowDeleteConfirm(false);
+    setDeleteTarget(null);
+  };
+
   return (
     <div>
       <div style={{ marginBottom: 24 }}><div style={{ fontSize: 22, fontWeight: 700, marginBottom: 4 }}>마감된 문서</div><div style={{ fontSize: 14, color: C.textLight }}>마감이 지난 문서 목록입니다.</div></div>
       <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-        {docsInitial.map(doc => {
+        {docs.map(doc => {
           const checked = checkStates[doc.title];
           const doneCount = checked.filter(Boolean).length;
 
@@ -749,7 +771,10 @@ function ExpiredPage({ onNavTo }) {
                 <span style={{ fontSize: 12, fontWeight: 600, padding: "4px 12px", borderRadius: 20, background: doneCount === doc.checks.length ? "#F0FDF4" : "#FFE5E5", color: doneCount === doc.checks.length ? C.green : C.red }}>
                   {doneCount === doc.checks.length ? '완료' : '미완료'}
                 </span>
-                <span style={{ fontSize: 11, color: C.textLight }}>{doc.deadline} 17:00</span>
+                <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                  <span style={{ fontSize: 11, color: C.textLight }}>{doc.deadline} 17:00</span>
+                  <button onClick={() => handleDeleteClick(doc.title)} style={{ ...S.btnOutline, fontSize: 11, padding: "5px 10px", color: C.red, borderColor: C.red }}>🗑️ 삭제</button>
+                </div>
               </div>
               <div style={{ fontSize: 16, fontWeight: 700, margin: "10px 0 4px" }}>{doc.title}</div>
               <div style={{ fontSize: 12, color: C.textLight, marginBottom: 14 }}>📎 업로드: {doc.upload} · 마감: {doc.deadline}</div>
@@ -770,6 +795,30 @@ function ExpiredPage({ onNavTo }) {
           );
         })}
       </div>
+
+      {/* 삭제 확인 팝업 */}
+      {showDeleteConfirm && (
+        <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0,0,0,0.5)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 1000 }}>
+          <div style={{ background: "white", borderRadius: 14, padding: 28, textAlign: "center", maxWidth: 320, boxShadow: "0 20px 48px rgba(0,0,0,0.2)" }}>
+            <div style={{ fontSize: 16, fontWeight: 700, marginBottom: 8 }}>삭제하시겠습니까?</div>
+            <div style={{ fontSize: 13, color: C.textLight, marginBottom: 24 }}>{deleteTarget}을(를) 삭제합니다</div>
+            <div style={{ display: "flex", gap: 10 }}>
+              <button onClick={handleDeleteCancel} style={{ ...S.btnOutline, flex: 1, fontSize: 13 }}>아니오</button>
+              <button onClick={handleDeleteConfirm} style={{ ...S.btnPrimary, flex: 1, fontSize: 13 }}>예</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 삭제 성공 팝업 */}
+      {showDeleteSuccess && (
+        <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0,0,0,0.5)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 1000 }}>
+          <div style={{ background: "white", borderRadius: 14, padding: 28, textAlign: "center", maxWidth: 320, boxShadow: "0 20px 48px rgba(0,0,0,0.2)" }}>
+            <div style={{ fontSize: 18, marginBottom: 8 }}>✅</div>
+            <div style={{ fontSize: 16, fontWeight: 700 }}>삭제되었습니다</div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -1214,12 +1263,19 @@ function Toggle({ defaultOn = false }) {
 
 function ProfilePage() {
   const [settingsTab, setSettingsTab] = useState("profile");
+  const [showSaveSuccess, setShowSaveSuccess] = useState(false);
   const tabs = [["profile","👤 프로필"],["notifications","🔔 알림 설정"],["security","🔒 보안"],["calendar","📅 캘린더 연동"]];
+
+  const handleSave = () => {
+    setShowSaveSuccess(true);
+    setTimeout(() => setShowSaveSuccess(false), 2000);
+  };
+
   return (
     <div>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 24 }}>
         <div><div style={{ fontSize: 22, fontWeight: 700, marginBottom: 4 }}>내 정보</div><div style={{ fontSize: 14, color: C.textLight }}>계정 정보와 알림 설정을 관리하세요.</div></div>
-        <button style={S.btnPrimary}>저장하기</button>
+        <button onClick={handleSave} style={S.btnPrimary}>저장하기</button>
       </div>
       <div style={{ display: "grid", gridTemplateColumns: "240px 1fr", gap: 20, alignItems: "start" }}>
         <div style={{ background: "white", borderRadius: 14, overflow: "hidden" }}>
@@ -1302,6 +1358,16 @@ function ProfilePage() {
           )}
         </div>
       </div>
+
+      {/* 저장 완료 팝업 */}
+      {showSaveSuccess && (
+        <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0,0,0,0.5)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 1000 }}>
+          <div style={{ background: "white", borderRadius: 14, padding: 28, textAlign: "center", maxWidth: 320, boxShadow: "0 20px 48px rgba(0,0,0,0.2)" }}>
+            <div style={{ fontSize: 18, marginBottom: 8 }}>✅</div>
+            <div style={{ fontSize: 16, fontWeight: 700 }}>저장되었습니다</div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
