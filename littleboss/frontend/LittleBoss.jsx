@@ -553,7 +553,6 @@ function UploadPage({ onNavTo }) {
             <div style={{ fontSize: 13, color: C.textLight, lineHeight: 1.6 }}>또는 아래 버튼으로 파일을 선택하세요<br/>PDF, JPG, PNG, DOCX 지원 · 최대 20MB</div>
             <div style={{ display: "flex", gap: 10, justifyContent: "center", marginTop: 24 }}>
               <label style={{ ...S.btnPrimary, padding: "10px 20px" }}>📁 파일 선택<input type="file" multiple accept=".pdf,.docx,.jpg,.jpeg,.png" style={{ display: "none" }} onChange={e => handleFileSelect(e.target.files)} /></label>
-              <button style={S.btnOutline} onClick={() => setQueue([])}>✕ 업로드 취소</button>
             </div>
             <div style={{ fontSize: 11, color: C.textLight, marginTop: 12 }}>지원 형식: PDF · DOCX · JPG · PNG · HWP</div>
           </div>
