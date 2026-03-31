@@ -494,6 +494,7 @@ function UploadPage({ onNavTo }) {
   const [dragging, setDragging] = useState(false);
   const [uploadConfirm, setUploadConfirm] = useState(false);
   const [fileToUpload, setFileToUpload] = useState(null);
+  const [checkedFiles, setCheckedFiles] = useState({});
   const recentFiles = [
     { id: 1, icon: "📄", name: "국가장학금_신청안내.pdf", date: "2026.03.14", done: false },
     { id: 2, icon: "📄", name: "근로장학금_신청서.pdf", date: "2026.02.28", done: true },
@@ -558,14 +559,14 @@ function UploadPage({ onNavTo }) {
           </div>
           <div style={{ marginTop: 20, display: "flex", flexDirection: "column", gap: 10 }}>
             {queue.map(f => (
-              <div key={f.id} style={{ background: "white", borderRadius: 10, padding: "12px 16px", display: "flex", alignItems: "center", gap: 12 }}>
+              <div key={f.id} style={{ background: "white", borderRadius: 10, padding: "12px 16px", display: "flex", alignItems: "center", gap: 12, opacity: checkedFiles[f.id] ? 0.5 : 1, transition: "opacity 0.2s" }}>
                 <span style={{ fontSize: 24 }}>📄</span>
                 <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ fontSize: 13, fontWeight: 600, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{f.name}</div>
+                  <div style={{ fontSize: 13, fontWeight: 600, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", textDecoration: checkedFiles[f.id] ? "line-through" : "none" }}>{f.name}</div>
                   <div style={{ fontSize: 11, color: C.textLight, marginTop: 2 }}>{f.size}</div>
                   <div style={{ height: 3, background: "#EDE9FF", borderRadius: 2, marginTop: 6 }}><div style={{ height: "100%", borderRadius: 2, background: C.purple, width: f.progress + "%", transition: "width .3s" }} /></div>
                 </div>
-                <input type="checkbox" onChange={(e) => { if(e.target.checked) setQueue(q => q.filter(i => i.id !== f.id)); }} style={{ width: 18, height: 18, cursor: "pointer", accentColor: C.purple }} />
+                <input type="checkbox" checked={checkedFiles[f.id] || false} onChange={(e) => { setCheckedFiles(prev => ({ ...prev, [f.id]: e.target.checked })); }} style={{ width: 18, height: 18, cursor: "pointer", accentColor: C.purple }} />
               </div>
             ))}
           </div>
