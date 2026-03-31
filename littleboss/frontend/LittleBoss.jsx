@@ -783,10 +783,10 @@ function OngoingPage({ onNavTo }) {
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: 7, marginTop: 12 }}>
                 {doc.checks.map((c, idx) => (
-                  <label key={c.l} style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 13, color: C.textMid, cursor: "pointer" }}>
+                  <div key={c.l} style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 13, color: C.textMid }}>
                     <input type="checkbox" checked={checked[idx]} onChange={() => toggleCheck(doc.title, idx)} style={{ accentColor: C.purple, width: 15, height: 15, cursor: "pointer" }} />
-                    {c.l}
-                  </label>
+                    <span>{c.l}</span>
+                  </div>
                 ))}
               </div>
               <div style={{ height: 5, background: "#EDE9FF", borderRadius: 3, marginTop: 14 }}><div style={{ height: "100%", borderRadius: 3, background: C.purple, width: percentage+"%" }} /></div>
@@ -864,10 +864,10 @@ function ExpiredPage({ onNavTo }) {
               <div style={{ fontSize: 12, color: C.textLight, marginBottom: 14 }}>📎 업로드: {doc.upload} · 마감: {doc.deadline}</div>
               <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
                 {doc.checks.map((c, idx) => (
-                  <label key={c.l} style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 13, color: C.textMid, cursor: "pointer" }}>
+                  <div key={c.l} style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 13, color: C.textMid }}>
                     <input type="checkbox" checked={checked[idx]} onChange={() => toggleCheck(doc.title, idx)} style={{ accentColor: C.purple, width: 15, height: 15, cursor: "pointer" }} />
-                    {c.l}
-                  </label>
+                    <span>{c.l}</span>
+                  </div>
                 ))}
               </div>
               <div style={{ height: 5, background: "#F0EEF8", borderRadius: 3, marginTop: 14 }}><div style={{ height: "100%", borderRadius: 3, background: C.purple, width: (doneCount/doc.checks.length*100)+"%" }} /></div>
