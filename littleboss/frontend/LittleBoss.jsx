@@ -559,7 +559,7 @@ function UploadPage({ onNavTo }) {
           </div>
           <div style={{ marginTop: 20, display: "flex", flexDirection: "column", gap: 10 }}>
             {queue.map(f => (
-              <div key={f.id} style={{ background: "white", borderRadius: 10, padding: "12px 16px", display: "flex", alignItems: "center", gap: 12, opacity: checkedFiles[f.id] ? 0.5 : 1, transition: "opacity 0.2s" }}>
+              <div key={f.id} style={{ background: "white", borderRadius: 10, padding: "12px 16px", display: "flex", alignItems: "center", gap: 12 }}>
                 <span style={{ fontSize: 24 }}>📄</span>
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ fontSize: 13, fontWeight: 600, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{f.name}</div>
