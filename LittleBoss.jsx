@@ -284,6 +284,7 @@ function Dashboard({ onNavTo }) {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showDocFilter, setShowDocFilter] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState(null);
+  const [hoverDetailList, setHoverDetailList] = useState(false);
 
   const monthNames = ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"];
   const getDaysInMonth = (y, m) => new Date(y, m, 0).getDate();
@@ -393,7 +394,7 @@ function Dashboard({ onNavTo }) {
             })}
           </div>
           <div style={{ textAlign: "center", marginTop: 32 }}>
-            <span onClick={() => onNavTo("sub-schedule")} style={{ fontSize: 12, color: C.purple, cursor: "pointer", fontWeight: 600 }}>상세 목록 보기</span>
+            <span onClick={() => onNavTo("sub-schedule")} onMouseEnter={() => setHoverDetailList(true)} onMouseLeave={() => setHoverDetailList(false)} style={{ fontSize: 12, color: C.purple, cursor: "pointer", fontWeight: 600, transform: hoverDetailList ? "scale(1.15)" : "scale(1)", transition: "transform 0.2s ease-in-out", display: "inline-block" }}>상세 목록 보기</span>
           </div>
         </div>
       </div>
